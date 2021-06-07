@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="204a3b3f-8a65-4aad-a873-d7e9130e944c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/process_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/back/process_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/front/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +91,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1622988388720</updated>
-      <workItem from="1622988389841" duration="24276000" />
+      <workItem from="1622988389841" duration="24322000" />
     </task>
     <servers />
   </component>
@@ -115,6 +110,6 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/dna_rna$main.coverage" NAME="main Coverage Results" MODIFIED="1623026744985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/dna_rna$main.coverage" NAME="main Coverage Results" MODIFIED="1623026792164" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
