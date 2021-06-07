@@ -42,6 +42,17 @@
     align-items: center;
 }
 
+.result-info {
+    display: flex;
+    width: 100vw;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.result-error {
+    color: red;
+}
+
 button {
     font-family: inherit;
     border-radius: 5px;
@@ -69,4 +80,9 @@ button {
 button:hover {
     background-color: white;
     color: black;
+}
+
+.result-correlation, .result-cosine {
+    display: flex;
+    flex-direction: column;
 }

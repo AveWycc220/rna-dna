@@ -1,6 +1,11 @@
 function render(val) {
-    console.log(val)
-    document.querySelector('.result-info').innerHTML = val
+    if (typeof val === 'string') {
+        document.querySelector('.result-error').innerHTML = val
+    } else {
+        document.querySelector('.result-error').innerHTML = ''
+        document.querySelector('.result-cosine-dna').innerHTML = `DNA: ${val[1]}`
+        document.querySelector('.result-correlation-dna').innerHTML = `DNA: ${val[0]}`
+    }
 }
 
 function renderPath(val, type) {
@@ -20,7 +25,9 @@ async function selectFileSecond() {
 }
 
 async function run() {
-    await eel.run_programm()().then((data) => render(data));
+    await eel.run_programm()().then((data) => render(data)).catch((e) => {
+        document.querySelector('.main').innerHTML = e.errorText
+    })
 }
 
 document.querySelector('.select-1').onclick = selectFileFirst;

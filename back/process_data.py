@@ -2,6 +2,9 @@ import wx
 import eel
 import numpy as np
 import re
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 from sklearn.cross_decomposition import CCA
 from sklearn.preprocessing import LabelEncoder
 from scipy.spatial import distance
@@ -51,9 +54,18 @@ class Program:
             temp_DNA_1 = self._convert_dna(self.DNA_1)
             temp_DNA_2 = self._convert_dna(self.DNA_2)
             shape = min(temp_DNA_1.shape[0], temp_DNA_2.shape[0])
-            print(distance.cosine(temp_DNA_1[:shape], temp_DNA_2[:shape]))
-            DNA_1_C, DNA_2_C = self.cca.fit_transform(temp_DNA_1[:shape], temp_DNA_2[:shape])
-            return np.corrcoef(DNA_1_C, DNA_2_C, rowvar=False).diagonal(1)[0]
+            DNA_1_C, DNA_2_C = self.cca.fit_transform(temp_DNA_1[:shape].reshape(-1, 1), temp_DNA_2[:shape].reshape(-1, 1))
+            cc_res = pd.DataFrame({"DNA_1_C": list(map(lambda x: x[0], DNA_1_C)),
+                                   "DNA_1": temp_DNA_1[:shape]}, index=[i for i in range(len(DNA_1_C))])
+            plt.figure(figsize=(10, 8))
+            corr_X_df = cc_res.corr(method='pearson')
+            corr_X_df.head()
+            X_df_lt = corr_X_df.where(np.tril(np.ones(corr_X_df.shape)).astype(np.bool))
+            sns.heatmap(X_df_lt, cmap="coolwarm", annot=True, fmt='.1g')
+            plt.tight_layout()
+            cor = np.corrcoef(DNA_1_C, DNA_2_C, rowvar=False).diagonal(1)[0]
+            plt.show()
+            return cor, distance.cosine(temp_DNA_1[:shape], temp_DNA_2[:shape])
         return 'Выберете файлы'
 
     def _convert_dna(self, l):
