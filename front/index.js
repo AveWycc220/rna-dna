@@ -3,8 +3,8 @@ function render(val) {
         document.querySelector('.result-error').innerHTML = val
     } else {
         document.querySelector('.result-error').innerHTML = ''
-        document.querySelector('.result-cosine-dna').innerHTML = `DNA: ${val[1]}`
-        document.querySelector('.result-correlation-dna').innerHTML = `DNA: ${val[0]}`
+        document.querySelector('.result-cosine-info').innerHTML = `${val[1]}`
+        document.querySelector('.result-correlation-info').innerHTML = `${val[0]}`
     }
 }
 
