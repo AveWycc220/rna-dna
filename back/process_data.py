@@ -1,22 +1,15 @@
 import wx
 import eel
-import numpy as np
 import re
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
 from sklearn.cross_decomposition import CCA
-from sklearn.preprocessing import LabelEncoder
-from scipy.spatial import distance
+from scipy.stats import pearsonr
+from scipy.spatial.distance import cosine
 
 
 class Program:
     DNA_1 = None
     DNA_2 = None
-    RNA_1 = None
-    RNA_2 = None
     cca = CCA(n_components=1)
-    le = LabelEncoder()
 
     @eel.expose
     def get_data(self, type, wildcard="*"):
@@ -41,25 +34,39 @@ class Program:
                 text = text.replace('\n', '')
                 if type == 1:
                     self.DNA_1 = text
-                    text = text.replace('t', 'u')
-                    self.RNA_1 = text
                 if type == 2:
                     self.DNA_2 = text
-                    text = text.replace('t', 'u')
-                    self.RNA_2 = text
         return path
 
     @eel.expose
     def run(self):
         if self.DNA_1 and self.DNA_2:
-            temp_DNA_1 = self._convert(self.DNA_1)
-            temp_DNA_2 = self._convert(self.DNA_2)
-            shape = min(temp_DNA_1.shape[0], temp_DNA_2.shape[0])
-            DNA_1_C, DNA_2_C = self.cca.fit_transform(temp_DNA_1[:shape].reshape(-1, 1), temp_DNA_2[:shape].reshape(-1, 1))
-            cor = np.corrcoef(DNA_1_C, DNA_2_C, rowvar=False).diagonal(1)[0]
-            return cor, distance.cosine(temp_DNA_1[:shape], temp_DNA_2[:shape])
+            length = min(len(self.DNA_1), len(self.DNA_2))
+            temp_DNA_1 = self._convert(self.DNA_1)[:length]
+            temp_DNA_2 = self._convert(self.DNA_2)[:length]
+            p_real = pearsonr(list(map(lambda x: x.real, temp_DNA_1)), list(map(lambda x: x.real, temp_DNA_2)))
+            p_imag = pearsonr(list(map(lambda x: x.imag, temp_DNA_1)), list(map(lambda x: x.imag, temp_DNA_2)))
+            p = (p_real[0] + p_imag[0])/2
+            if p < 0.0:
+                p = abs(p)
+            p_real = cosine(list(map(lambda x: x.real, temp_DNA_1)), list(map(lambda x: x.real, temp_DNA_2)))
+            p_imag = cosine(list(map(lambda x: x.imag, temp_DNA_1)), list(map(lambda x: x.imag, temp_DNA_2)))
+            c = (p_real + p_imag)/2
+            if c > 1.0:
+                c = 1 - (c - 1)
+            return p, c
         return 'Выберете файлы'
 
-    def _convert(self, l):
-        return self.le.fit_transform([*l])
+    @staticmethod
+    def _convert(l):
+        def convert_letters(x):
+            if x == 'a':
+                return 0 + 1j
+            if x == 'c':
+                return 1 + 0j
+            if x == 'g':
+                return -1 + 0j
+            if x == 't':
+                return 0 - 1j
+        return list(map(convert_letters, l))
 
