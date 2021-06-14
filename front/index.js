@@ -1,8 +1,16 @@
 function render(val) {
     if (typeof val === 'string') {
         document.querySelector('.result-error').innerHTML = val
+    } else if (val.length === 3) {
+        document.querySelector('.result-error').innerHTML = `${val[0]}`
+        document.querySelector('.result-cosine-info').innerHTML = `${val[1]}`
+        document.querySelector('.result-cosine-title').innerHTML = `Расстояние городских кварталов`
+        document.querySelector('.result-correlation-info').innerHTML = `${val[2]}`
+        document.querySelector('.result-correlation-title').innerHTML = `Расстояние Минковского`
     } else {
         document.querySelector('.result-error').innerHTML = ''
+        document.querySelector('.result-cosine-title').innerHTML = `Коэффициент Отиаи`
+        document.querySelector('.result-correlation-title').innerHTML = `Корреляционный коэффицент`
         document.querySelector('.result-cosine-info').innerHTML = `${val[1]}`
         document.querySelector('.result-correlation-info').innerHTML = `${val[0]}`
     }
