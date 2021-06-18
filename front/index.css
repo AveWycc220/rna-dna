@@ -86,3 +86,7 @@ button:hover {
     display: flex;
     flex-direction: column;
 }
+
+.loader {
+    fill: black;
+}
