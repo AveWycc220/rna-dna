@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="index.css">
     <link rel="icon" href="./assets/icon.svg">
     <script type="text/javascript" src="/eel.js"></script>
-    <title>RNA-DNA</title>
+    <title>DNA-RNA</title>
 </head>
 <body>
+<div class="app">
     <div class="main">
         <div class="objects">
             <div class="object-1">
@@ -26,7 +27,27 @@
         </div>
         <div class="control">
             <div class="run">
+                <div class="option">
+                    <select class="select-control">
+                        <option id="option-1" value="1">Коэффициенты последовательностей</option>
+                        <option id="option-2" value="2">Выравнивание последовательностей</option>
+                    </select>
+                </div>
                 <button class="run">Запустить</button>
+                <div class="inputs disabled">
+                    <div class="length-box">
+                        <span class="text-length">
+                            Длина фрагмента в скользяшем окне.
+                        </span>
+                        <input type="number" class="length">
+                    </div>
+                    <div class="threshold-box">
+                        <span class="text-threshold">
+                            Порог корреляционного коэффициента. От 0 до 1
+                        </span>
+                        <input type="number" class="threshold">
+                    </div>
+                </div>
             </div>
             <div class="result">
                 <span class="result-title">Результат</span>
@@ -44,9 +65,12 @@
             </div>
         </div>
     </div>
-    <div class="loader">
-        <img src="assets/tail-spin.svg" alt="loader"/>
+    <div class="loader-container disabled">
+        <div class="loader">
+            <img src="assets/tail-spin.svg" id="loader-svg" alt="loader"/>
+        </div>
     </div>
-    <script type="text/javascript" src="./index.js"></script>
+</div>
+<script type="text/javascript" src="./index.js"></script>
 </body>
 </html>

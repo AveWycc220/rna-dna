@@ -50,6 +50,7 @@
 }
 
 .result-error {
+    margin-bottom: 10px;
     color: red;
 }
 
@@ -65,7 +66,7 @@ button {
     background-color: black;
 }
 
-.path-1, .path-2 {
+.path-1, .path-2, .path-3 {
     height: 30px;
     font-size: 1rem;
 }
@@ -73,6 +74,7 @@ button {
 .run {
     font-size: 1.1rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -87,6 +89,59 @@ button:hover {
     flex-direction: column;
 }
 
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .loader {
-    fill: black;
+    width: 15vw;
+    height: 15vw;
+}
+
+
+#loader-svg {
+    width: 15vw;
+    height: 15vw;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+.disabled {
+    display: none;
+}
+
+.option {
+    margin: 0 0 40px 0;
+}
+
+.select-control {
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
+
+.threshold-box, .length-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputs {
+    margin-top: 30px;
+}
+
+
+input {
+    font-size: 1.05rem;
+    font-family: inherit;
+}
+
+.open-result {
+    font-size: 1.025rem;
 }
