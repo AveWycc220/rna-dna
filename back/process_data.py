@@ -138,7 +138,7 @@ class Program:
                 res.append(a(DNA_2_list[0].upper()).aligned_query_sequence)
                 print(a(DNA_2_list[0].upper()).aligned_query_sequence)
             for i in range(len(res)):
-                str_res = str_res + f'Корреляционный коэффициент: {correlation_list[i]}\nDNA_1: {DNA_1_list[i].upper()}\nDNA_2: {DNA_2_list[i].upper()}\n---------\nRES: {res[i]}\n\n'
+                str_res = str_res + f'Корреляционный коэффициент: {correlation_list[i]}\nDNA_1: {DNA_1_list[i].upper()}\nDNA_2: {DNA_2_list[i].upper()}\n---------\nRES: {res[i].replace("-","")}\n\n'
             if len(str_res) == 0:
                 str_res = 'Нет подходящих данных.'
             with open(self.path_res, "w") as f:
