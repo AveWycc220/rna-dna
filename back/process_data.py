@@ -7,7 +7,7 @@ import numpy as np
 from decimal import Decimal
 import matplotlib.pyplot as plt
 from math import factorial
-from skbio.alignment import StripedSmithWaterman, local_pairwise_align
+from skbio.alignment import StripedSmithWaterman
 from sklearn.cross_decomposition import CCA
 from scipy.stats import pearsonr
 import swalign
@@ -176,15 +176,37 @@ class Program:
             str_res = ''
             for i in range(len(DNA_1_list)):
                 a = StripedSmithWaterman(DNA_1_list[i].upper())
-                res.append(a(DNA_2_list[0].upper()).aligned_query_sequence)
+                res.append(a(DNA_2_list[i].upper()).aligned_query_sequence)
             for i in range(len(res)):
-                str_res = str_res + f'Процент схожести: {similarity_list[i]}\nDNA_1: {DNA_1_list[i].upper()}\nDNA_2: {DNA_2_list[i].upper()}\n---------\nRES: {res[i].replace("-","")}\n\n'
-            if len(str_res) == 0:
-                str_res = 'Нет подходящих данных.'
+                if self.path_res:
+                    with open(self.path_res + f'\\res_alignment_{i}.txt', "w") as f:
+                        f.write(f'Процент схожести: {similarity_list[i]}\nDNA_1: {DNA_1_list[i].upper()}\nDNA_2: {DNA_2_list[i].upper()}\n---------\nRES: {res[i].replace("-", "")}\n\n')
             if self.path_res:
-                with open(self.path_res + '\\res_alignment.txt', "w") as f:
-                    f.write(str_res)
-                os.startfile(self.path_res + '\\res_alignment.txt')
+                with open(self.path_res + '\\stats_alignment.txt', "w") as f:
+                    sum_DNA_len = 0
+                    sum_res_len = 0
+                    sum_hole_len = 0
+                    if len(self.DNA_1) > len(self.DNA_2):
+                        for i in range(len(DNA_2_list)):
+                            sum_DNA_len = sum_DNA_len + len(DNA_2_list[i])
+                    else:
+                        for i in range(len(DNA_1_list)):
+                            sum_DNA_len = sum_DNA_len + len(DNA_1_list[i])
+                    for i in range(len(res)):
+                        sum_res_len = sum_res_len + len(res[i])
+                    if len(self.DNA_1) > len(self.DNA_2):
+                        for i in range(len(DNA_2_list)):
+                            sum_hole_len = sum_hole_len + (len(DNA_2_list[i]) - len(res[i]))
+                    else:
+                        for i in range(len(DNA_1_list)):
+                            sum_hole_len = sum_hole_len + (len(DNA_1_list[i]) - len(res[i]))
+                    if len(res) == 0:
+                        f.write('Нет подходящих данных.')
+                    else:
+                        f.write(f'При пороге = {threshold}%\n\nОбщая длина ДНК: {sum_DNA_len}\nОбщая длина сходимостей при выравнивании: {sum_res_len}\nОбщая длина пропусков при выравнивании: '
+                                f'{sum_hole_len}\n\nПроцент сходимости: {(sum_res_len/sum_DNA_len) * 100}\nПроцент пропусков: {(sum_hole_len/sum_DNA_len) * 100}\n\n'
+                                f'Средняя длина ДНК: {sum_DNA_len/len(res)}\nСреднее число сходимостей: {sum_res_len/len(res)}\nСреднее число пропусков: {sum_hole_len/len(res)}')
+                os.startfile(self.path_res + f'\\stats_alignment.txt')
             return True
         return 'Выберете файлы или папку для сохранения результата'
 
