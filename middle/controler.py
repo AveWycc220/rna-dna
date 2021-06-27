@@ -11,10 +11,19 @@ def select_file(type):
 
 
 @eel.expose
-def run_programm(length=None, threshold=None):
-    return program.run(length, threshold)
+def run_programm(threshold=None):
+    return program.run(threshold)
 
 
 @eel.expose
 def open_result():
     return program.open_file()
+
+@eel.expose
+def open_sliding():
+    return program.sliding()
+
+
+@eel.expose
+def show_plot():
+    return program.show_graphic()

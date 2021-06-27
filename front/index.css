@@ -58,6 +58,7 @@ button {
     font-family: inherit;
     border-radius: 5px;
     padding: 4px;
+    margin: 5px;
     letter-spacing: 1.5px;
     cursor: pointer;
     transition: 0.1s linear;

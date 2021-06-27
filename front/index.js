@@ -1,5 +1,4 @@
 function render(val) {
-    console.log(val)
     if (typeof val === 'string') {
         document.querySelector('.result-error').innerHTML = val
     } else if (val.length === 3) {
@@ -19,11 +18,13 @@ function render(val) {
 
 function renderPath(val, type) {
     if (type === 1) {
-        document.querySelector('.path-1').innerHTML = val
+        document.querySelector('.path-1').innerHTML = val[0]
+        document.querySelector('.path-1-length').innerHTML = `Длина: ${val[1]}`
     } else if (type === 2) {
-        document.querySelector('.path-2').innerHTML = val
+        document.querySelector('.path-2').innerHTML = val[0]
+        document.querySelector('.path-2-length').innerHTML = `Длина: ${val[1]}`
     } else if (type === 3) {
-        document.querySelector('.path-3').innerHTML = val
+        document.querySelector('.path-3').innerHTML = val[0]
     }
 }
 
@@ -39,6 +40,26 @@ async function selectFileThird() {
     await eel.select_file(3)().then((data) => renderPath(data, 3));
 }
 
+async function showPlot() {
+    document.querySelector('.loader-container').classList.remove('disabled')
+    document.querySelector('.main').classList.add('disabled')
+    document.querySelector('.app').classList.add('loading')
+    await eel.show_plot()()
+    document.querySelector('.loader-container').classList.add('disabled')
+    document.querySelector('.main').classList.remove('disabled')
+    document.querySelector('.app').classList.remove('loading')
+}
+
+async function showSliding() {
+    document.querySelector('.loader-container').classList.remove('disabled')
+    document.querySelector('.main').classList.add('disabled')
+    document.querySelector('.app').classList.add('loading')
+    await eel.open_sliding()()
+    document.querySelector('.loader-container').classList.add('disabled')
+    document.querySelector('.main').classList.remove('disabled')
+    document.querySelector('.app').classList.remove('loading')
+}
+
 async function run() {
     document.querySelector('.loader-container').classList.remove('disabled')
     document.querySelector('.main').classList.add('disabled')
@@ -48,12 +69,12 @@ async function run() {
             document.querySelector('.main').innerHTML = e.errorText
         })
     } else {
-        const lengthNum = document.querySelector('.length').value
         const threshold = document.querySelector('.threshold').value
-        if (lengthNum.length === 0 || threshold === 0 || (parseFloat(threshold) > 1.0 || parseFloat(threshold) < 0.0) || parseInt(lengthNum) < 0) {
+        console.log(threshold)
+        if (threshold === '' || (parseFloat(threshold) > 100.0 || parseFloat(threshold) < 0.0)) {
             document.querySelector('.result-error').innerHTML = 'Не введены значения или введены неверно'
         } else {
-            await eel.run_programm(parseInt(lengthNum), parseFloat(threshold))().then((data) => render(data)).catch((e) => {
+            await eel.run_programm(parseFloat(threshold))().then((data) => render(data)).catch((e) => {
                 document.querySelector('.main').innerHTML = e.errorText
             })
         }
@@ -72,12 +93,20 @@ document.querySelector('.select-control').addEventListener('change', (e) => {
         document.querySelector('.inputs').classList.remove('disabled')
         document.querySelector('.result').innerHTML = `
                 <span class="result-error"></span>
-                <button class="open-result">Выбрать файл для записи результата</button>
+                <button class="open-plot">Открыть и сохранить результаты формулы Бернулли</button>
+                <button class="open-sliding">Открыть и сохранить результаты скользящего сравнения</button>
+                <button class="open-align">Открыть и сохранить результаты выравнивания</button>
+                <button class="open-result">Выбрать папку для записи результатов</button>
                 <span class="path-3"></span>
 `
         document.querySelector('.open-result').onclick = selectFileThird;
+        document.querySelector('.open-plot').onclick = showPlot;
+        document.querySelectorAll('.run')[1].classList.add('disabled')
+        document.querySelector('.open-sliding').onclick = showSliding;
+        document.querySelector('.open-align').onclick = run;
     } else {
         document.querySelector('.inputs').classList.add('disabled')
+        document.querySelectorAll('.run')[1].classList.remove('disabled')
         document.querySelector('.result').innerHTML = `
         <span class="result-title">Результат</span>
                 <span class="result-error"></span>
