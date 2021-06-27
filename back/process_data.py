@@ -324,7 +324,7 @@ class Program:
                         plt.savefig(self.path_res + '\\res_bern.png')
                     plt.show()
 
-    def sliding(self):
+    def sliding(self, threshold=None):
         if self.path_DNA_1 and self.path_DNA_2:
             with open(self.path_DNA_1, "r") as f:
                 text = f.read()
@@ -349,26 +349,61 @@ class Program:
                 text = text.replace('\n', '')
                 self.DNA_2 = text
             res = []
+            print(threshold)
+            if threshold:
+                threshold_res = []
+                threshold_index = []
+                threshold_coordiantes = []
+            coordinates = []
             length_dna = min(len(self.DNA_1), len(self.DNA_2))
             max_length = max(len(self.DNA_1), len(self.DNA_2))
             temp_DNA_1 = np.array(list(self.DNA_1))
             temp_DNA_2 = np.array(list(self.DNA_2))
             for i in range(max_length - length_dna):
                 if len(self.DNA_1) > len(self.DNA_2):
-                    res.append(np.mean(temp_DNA_2 == temp_DNA_1[i:length_dna+i]) * 100)
+                    coordinates_temp = []
+                    for j in range(len(self.DNA_2)):
+                        if temp_DNA_2[j] == temp_DNA_1[i:length_dna+i][j]:
+                            coordinates_temp.append(f'({j}, {i+j}, {temp_DNA_2[j].upper()})')
+                    coordinates.append(coordinates_temp)
+                    mean = np.mean(temp_DNA_2 == temp_DNA_1[i:length_dna+i]) * 100
+                    res.append(mean)
+                    if threshold:
+                        if mean > threshold:
+                            threshold_res.append(mean)
+                            threshold_index.append(i)
+                            threshold_coordiantes.append(coordinates_temp)
                 else:
-                    res.append(np.mean(temp_DNA_1 == temp_DNA_2[i:length_dna+i]) * 100)
+                    coordinates_temp = []
+                    for j in range(len(self.DNA_1)):
+                        if temp_DNA_1[j] == temp_DNA_2[i:length_dna+i][j]:
+                            coordinates_temp.append(f'({j}, {j-i}, {temp_DNA_2[j].upper()})')
+                    coordinates.append(coordinates_temp)
+                    mean = np.mean(temp_DNA_1 == temp_DNA_2[i:length_dna+i]) * 100
+                    res.append(mean)
+                    if threshold:
+                        if mean > threshold:
+                            threshold_res.append(mean)
+                            threshold_index.append(i)
+                            threshold_coordiantes.append(coordinates_temp)
             plt.figure(figsize=(8, 6), dpi=80)
             plt.plot([i for i in range(len(res))], res)
             plt.xlabel('Номер позиции')
             plt.ylabel('Процент совпадения, %')
             if self.path_res:
-                str_res = 'Номер позиции | Процент совпадения, %\n'
+                str_res = 'Номер позиции | Процент совпадения, % | Координаты совпадений\n'
                 for i in range(len(res)):
-                    str_res = str_res + f'{i} | {res[i]}\n'
+                    str_res = str_res + f'{i} | {res[i]} | {coordinates[i]}\n'
                 with open(self.path_res + '\\res_sliding.txt', "w") as f:
                     f.write(str_res)
                 os.startfile(self.path_res + '\\res_sliding.txt')
+            if self.path_res and threshold:
+                str_res = f'Номер позиции | Процент совпадения, % | Координаты совпадений\nПорог = {threshold}%\n'
+                for i in range(len(threshold_res)):
+                    str_res = str_res + f'{threshold_index[i]} | {threshold_res[i]} | {threshold_coordiantes[i]}\n\n'
+                with open(self.path_res + '\\res_sliding_with_threshold.txt', "w") as f:
+                    f.write(str_res)
+                os.startfile(self.path_res + '\\res_sliding_with_threshold.txt')
             if self.path_res:
                 plt.savefig(self.path_res + '\\res_sliding.png')
             plt.show()

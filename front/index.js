@@ -54,7 +54,12 @@ async function showSliding() {
     document.querySelector('.loader-container').classList.remove('disabled')
     document.querySelector('.main').classList.add('disabled')
     document.querySelector('.app').classList.add('loading')
-    await eel.open_sliding()()
+    const threshold = document.querySelector('.threshold').value
+    if (threshold === '' || (parseFloat(threshold) > 100.0 || parseFloat(threshold) < 0.0)) {
+        await eel.open_sliding()()
+    } else {
+        await eel.open_sliding(parseFloat(threshold))()
+    }
     document.querySelector('.loader-container').classList.add('disabled')
     document.querySelector('.main').classList.remove('disabled')
     document.querySelector('.app').classList.remove('loading')

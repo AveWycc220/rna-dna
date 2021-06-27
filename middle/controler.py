@@ -20,8 +20,8 @@ def open_result():
     return program.open_file()
 
 @eel.expose
-def open_sliding():
-    return program.sliding()
+def open_sliding(threshold=None):
+    return program.sliding(threshold)
 
 
 @eel.expose
