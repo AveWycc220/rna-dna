@@ -7,8 +7,9 @@ import numpy as np
 from decimal import Decimal
 import matplotlib.pyplot as plt
 from math import factorial
-from skbio.alignment import StripedSmithWaterman
+from skbio.alignment import StripedSmithWaterman, local_pairwise_align_ssw
 from sklearn.cross_decomposition import CCA
+from skbio.sequence import DNA
 from scipy.stats import pearsonr
 import swalign
 from scipy.spatial.distance import cosine, cityblock, minkowski
@@ -174,13 +175,50 @@ class Program:
                     similarity_list.append(similarity)
             res = []
             str_res = ''
+            similarity_align = []
+            divergence = []
             for i in range(len(DNA_1_list)):
-                a = StripedSmithWaterman(DNA_1_list[i].upper())
-                res.append(a(DNA_2_list[i].upper()).aligned_query_sequence)
+                try:
+                    res.append(local_pairwise_align_ssw(DNA(DNA_1_list[i].upper()), DNA(DNA_2_list[i].upper()), gap_open_penalty=1, gap_extend_penalty=1)[0].iloc[1])
+                except:
+                    a = StripedSmithWaterman(DNA_1_list[i].upper())
+                    res.append(a(DNA_2_list[i].upper()).aligned_query_sequence)
+                if len(self.DNA_1) < len(self.DNA_2):
+                    temp_DNA_1 = np.array(list(DNA_1_list[i].upper().replace('-', '')))
+                    temp_DNA_2 = np.array(list(str(res[i]).replace('-', '')))
+                    temp = str(res[i]).count('-') + DNA_1_list[i].count('-')
+                    if len(temp_DNA_1) < len(temp_DNA_2):
+                        for j in range(len(temp_DNA_1)):
+                            if not temp_DNA_1[j] == temp_DNA_2[j]:
+                                temp = temp + 1
+                        similarity_align.append(100 - (temp / len(temp_DNA_1)) * 100)
+                    else:
+                        for j in range(len(temp_DNA_2)):
+                            if not temp_DNA_1[j] == temp_DNA_2[j]:
+                                temp = temp + 1
+                        similarity_align.append(100 - (temp / len(temp_DNA_2)) * 100)
+                else:
+                    temp_DNA_1 = np.array(list(DNA_2_list[i].upper().replace('-', '')))
+                    temp_DNA_2 = np.array(list(str(res[i]).replace('-', '')))
+                    temp = str(res[i]).count('-') + DNA_2_list[i].count('-')
+                    if len(temp_DNA_1) < len(temp_DNA_2):
+                        for j in range(len(temp_DNA_1)):
+                            if not temp_DNA_1[j] == temp_DNA_2[j]:
+                                temp = temp + 1
+                        similarity_align.append(100 - (temp / len(temp_DNA_1)) * 100)
+                    else:
+                        for j in range(len(temp_DNA_2)):
+                            if not temp_DNA_1[j] == temp_DNA_2[j]:
+                                temp = temp + 1
+                        similarity_align.append(100 - (temp / len(temp_DNA_2)) * 100)
+                if len(self.DNA_1) < len(self.DNA_2):
+                    divergence.append(round(100 - (len(DNA_1_list[i])/len(res[i])) * 100, 3))
+                else:
+                    divergence.append(round(100 - (len(DNA_2_list[i]) / len(res[i])) * 100, 3))
             for i in range(len(res)):
                 if self.path_res:
                     with open(self.path_res + f'\\res_alignment_{i}.txt', "w") as f:
-                        f.write(f'Процент схожести: {similarity_list[i]}\nDNA_1: {DNA_1_list[i].upper()}\nDNA_2: {DNA_2_list[i].upper()}\n---------\nRES: {res[i].replace("-", "")}\n\n')
+                        f.write(f'Процент схожести: {similarity_align[i]} Процент растяжения: {divergence[i]} DNA_1: {DNA_1_list[i].upper()} DNA_2: {DNA_2_list[i].upper()} RES: {res[i]}\n\n')
             if self.path_res:
                 with open(self.path_res + '\\stats_alignment.txt', "w") as f:
                     sum_DNA_len = 0
@@ -196,10 +234,10 @@ class Program:
                         sum_res_len = sum_res_len + len(res[i])
                     if len(self.DNA_1) > len(self.DNA_2):
                         for i in range(len(DNA_2_list)):
-                            sum_hole_len = sum_hole_len + (len(DNA_2_list[i]) - len(res[i]))
+                            sum_hole_len = abs(sum_hole_len + (len(DNA_2_list[i]) - len(res[i])))
                     else:
                         for i in range(len(DNA_1_list)):
-                            sum_hole_len = sum_hole_len + (len(DNA_1_list[i]) - len(res[i]))
+                            sum_hole_len = abs(sum_hole_len + (len(DNA_1_list[i]) - len(res[i])))
                     if len(res) == 0:
                         f.write('Нет подходящих данных.')
                     else:
