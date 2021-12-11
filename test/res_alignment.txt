@@ -1,0 +1,246 @@
+Процент схожести: 100.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATGGTTCCTCAG
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: CTGGTTTTTTCA
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATTGTGTTTCGG
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: TCGGTCCCTGGA
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 100.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATGGTTCCTCCA
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 100.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATGGTTCCTCGT
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: CAGGGTTCTCCT
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 70.0
+DNA_1: ATGGTTCCTC
+DNA_2: AGGGTTCTCCTA
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATGGAACTTAAA
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: CGGGTTTCACTT
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 100.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATGGTTCCTCAG
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: GTAGATCCGCGT
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 100.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATGGTTCCTCCT
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATCCTTACGCCG
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: AAGGAAGCTCTC
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: TTGGATCCATAT
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: AGGGTTTTCCCT
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: ACGGTGTCTTCC
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: ACTGTTCGACTA
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 70.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATGATTACACCA
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: TTGGATGCCCGA
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATGGTGTGACAT
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 100.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATGGTTCCTCTG
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATGGAACATGGG
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 70.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATGGTGCCCTCC
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: TTGGTGAATCTG
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATTGAGCATCTC
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: CTGGATGCACTG
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: CTTGTCCCTGGG
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATGGAGGCTGAT
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATGCTCACTACA
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 100.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATGGTTCCTCCA
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: AGGTGTCATCCT
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 70.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATCATCCCTCCT
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 70.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATCCCTCCTCCA
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: TGGAGTCCTCAG
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 60.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATGCACCCCCTG
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 100.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATGGTTCCTCAA
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 100.0
+DNA_1: ATGGTTCCTC
+DNA_2: ATGGTTCCTCCA
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 70.0
+DNA_1: ATGGTTCCTC
+DNA_2: AGGGGTCCTGAT
+---------
+RES: ATGGTTCCTC
+
+Процент схожести: 70.0
+DNA_1: ATGGTTCCTC
+DNA_2: CTGATTTCTCTG
+---------
+RES: ATGGTTCCTC
+

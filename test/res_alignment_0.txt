@@ -1,0 +1,2 @@
+Процент схожести: 60.0 Процент растяжения: -20.0 DNA_1: AATGTA DNA_2: ATGGTTCC RES: ATGGT
+
