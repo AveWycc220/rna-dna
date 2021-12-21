@@ -36,13 +36,13 @@ from scipy.spatial.distance import cosine, cityblock, minkowski
 from pandas import DataFrame, ExcelWriter
 
 """ CONST """
-PATH = os.path.dirname(os.path.abspath(__file__)) + '\\'
+PATH = os.path.dirname(os.path.abspath(__file__))
 
 
 class Program:
     DNA_1 = None
-    path_DNA_1 = PATH + 'input\\DNA_1.txt'
-    path_DNA_2 = PATH + 'input\\DNA_2.txt'
+    path_DNA_1 = os.path.join(PATH, 'input', 'DNA_1.txt')
+    path_DNA_2 = os.path.join(PATH, 'input', 'DNA_2.txt')
     path_res = PATH
     DNA_2 = None
     cca = CCA(n_components=1)
@@ -185,8 +185,8 @@ class Program:
                 if self.path_res:
                     str_res = str_res + f'Процент схожести: {similarity_align[i]} \nПроцент растяжения: {divergence[i]} \nDNA_1: {DNA_1_list[i].upper()} \nDNA_2: {DNA_2_list[i].upper()} \nRES       : {res[i]}\n\n'
             if self.path_res:
-                self.make_xlsx(str_res, '\\output\\res_align')
-                with open(self.path_res + '\\output\\stats_alignment.txt', "w") as f:
+                self.make_xlsx(str_res, 'res_align')
+                with open(os.path.join(PATH, 'output', 'stats_alignment.txt'), "w") as f:
                     sum_DNA_len = 0
                     sum_res_len = 0
                     sum_hole_len = 0
@@ -211,7 +211,7 @@ class Program:
                             f'При пороге = {threshold}%\n\nОбщая длина ДНК: {sum_DNA_len}\nОбщая длина сходимостей при выравнивании: {sum_res_len}\nОбщая длина пропусков при выравнивании: '
                             f'{sum_hole_len}\n\nПроцент сходимости: {(sum_res_len / sum_DNA_len) * 100}\nПроцент пропусков: {(sum_hole_len / sum_DNA_len) * 100}\n\n'
                             f'Средняя длина ДНК: {sum_DNA_len / len(res)}\nСреднее число сходимостей: {sum_res_len / len(res)}\nСреднее число пропусков: {sum_hole_len / len(res)}')
-                os.startfile(self.path_res + f'\\output\\stats_alignment.txt')
+                os.startfile(os.path.join(PATH, 'output', 'stats_alignment.txt'))
             return True
         return 'Выберете файлы или папку для сохранения результата'
 
@@ -244,7 +244,7 @@ class Program:
             result.append(line)
 
         df = DataFrame(result)
-        path = os.path.join(self.path_res, PATH + f'{name}.xlsx')
+        path = os.path.join(self.path_res, 'output', f'{name}.xlsx')
         writer = ExcelWriter(path, engine='xlsxwriter')
         df.to_excel(writer, sheet_name='result', index=False)
         writer.save()
@@ -283,17 +283,17 @@ class Program:
                     for i in range(len(self.DNA_1)):
                         str_res = str_res + f'{i} | {res[i]}\n'
                     try:
-                        self.make_xlsx(str_res, '\\output\\res_bern')
+                        self.make_xlsx(str_res, 'res_bern')
                     except:
-                        with open(self.path_res + '\\output\\res_bern.txt', "w") as f:
+                        with open(os.path.join(self.path_res, 'output', 'res_bern.txt'), "w") as f:
                             f.write(str_res)
-                        os.startfile(self.path_res + '\\output\\res_bern.txt')
+                        os.startfile(os.path.join(self.path_res, 'output', 'res_bern.txt'))
                 plt.figure(figsize=(8, 6), dpi=80)
                 plt.plot([i for i in range(len(self.DNA_1))], res)
                 plt.xlabel('Количество положительный исходов k из n испытаний')
                 plt.ylabel('Вероятность P, %')
                 if self.path_res:
-                    plt.savefig(self.path_res + '\\output\\res_bern.png')
+                    plt.savefig(os.path.join(self.path_res, 'output', 'res_bern.png'))
                 plt.show()
             else:
                 res = []
@@ -304,17 +304,17 @@ class Program:
                     for i in range(len(self.DNA_2)):
                         str_res = str_res + f'{i} | {res[i]}\n'
                     try:
-                        self.make_xlsx(str_res, '\\output\\res_bern')
+                        self.make_xlsx(str_res, 'res_bern')
                     except:
-                        with open(self.path_res + '\\output\\res_bern.txt', "w") as f:
+                        with open(os.path.join(self.path_res, 'output', 'res_bern.txt'), "w") as f:
                             f.write(str_res)
-                        os.startfile(self.path_res + '\\output\\res_bern.txt')
+                        os.startfile(os.path.join(self.path_res, 'output', 'res_bern.txt'))
                 plt.figure(figsize=(8, 6), dpi=80)
                 plt.plot([i for i in range(len(self.DNA_2))], res)
                 plt.xlabel('Количество положительный исходов k из n испытаний')
                 plt.ylabel('Вероятность P, %')
                 if self.path_res:
-                    plt.savefig(self.path_res + '\\output\\res_bern.png')
+                    plt.savefig(os.path.join(self.path_res, 'output', 'res_bern.png'))
                 plt.show()
         elif self.path_DNA_1 or self.path_DNA_2:
             if self.path_DNA_1:
@@ -337,17 +337,17 @@ class Program:
                         for i in range(len(self.DNA_1)):
                             str_res = str_res + f'{i} | {res[i]}\n'
                             try:
-                                self.make_xlsx(str_res, '\\output\\res_bern')
+                                self.make_xlsx(str_res, 'res_bern')
                             except:
-                                with open(self.path_res + '\\output\\res_bern.txt', "w") as f:
+                                with open(os.path.join(self.path_res, 'output', 'res_bern.txt'), "w") as f:
                                     f.write(str_res)
-                                os.startfile(self.path_res + '\\output\\res_bern.txt')
+                                os.startfile(os.path.join(self.path_res, 'output', 'res_bern.txt'))
                     plt.figure(figsize=(8, 6), dpi=80)
                     plt.plot([i for i in range(len(self.DNA_1))], res)
                     plt.xlabel('Количество положительный исходов k из n испытаний')
                     plt.ylabel('Вероятность P, %')
                     if self.path_res:
-                        plt.savefig(self.path_res + '\\output\\res_bern.png')
+                        plt.savefig(self.path_res + os.path.join(self.path_res, 'output', 'res_bern.png'))
                     plt.show()
             else:
                 with open(self.path_DNA_2, "r") as f:
@@ -369,17 +369,17 @@ class Program:
                         for i in range(len(self.DNA_2)):
                             str_res = str_res + f'{i} | {res[i]}\n'
                             try:
-                                self.make_xlsx(str_res, '\\output\\res_bern')
+                                self.make_xlsx(str_res, 'res_bern')
                             except:
-                                with open(self.path_res + '\\output\\res_bern.txt', "w") as f:
+                                with open(os.path.join(self.path_res, 'output', 'res_bern.txt'), "w") as f:
                                     f.write(str_res)
-                                os.startfile(self.path_res + '\\output\\res_bern.txt')
+                                os.startfile(os.path.join(self.path_res, 'output', 'res_bern.txt'))
                     plt.figure(figsize=(8, 6), dpi=80)
                     plt.plot([i for i in range(len(self.DNA_2))], res)
                     plt.xlabel('Количество положительный исходов k из n испытаний')
                     plt.ylabel('Вероятность P, %')
                     if self.path_res:
-                        plt.savefig(self.path_res + '\\output\\res_bern.png')
+                        plt.savefig(os.path.join(self.path_res, 'output', 'res_bern.png'))
                     plt.show()
 
     def sliding(self, threshold=None):
@@ -452,23 +452,23 @@ class Program:
                 for i in range(len(res)):
                     str_res = str_res + f'{i} | {res[i]} | {coordinates[i]}\n'
                 try:
-                    self.make_xlsx(str_res, '\\output\\res_sliding')
+                    self.make_xlsx(str_res, 'res_sliding')
                 except:
-                    with open(self.path_res + '\\output\\res_sliding.txt', "w") as f:
+                    with open(os.path.join(self.path_res, 'output', 'res_sliding.txt'), "w") as f:
                         f.write(str_res)
-                    os.startfile(self.path_res + '\\output\\res_sliding.txt')
+                    os.startfile(os.path.join(self.path_res, 'output', 'res_sliding.txt'))
             if self.path_res and threshold:
                 str_res = f'Номер позиции | Процент совпадения, % | Координаты совпадений\nПорог = {threshold}%\n'
                 for i in range(len(threshold_res)):
                     str_res = str_res + f'{threshold_index[i]} | {threshold_res[i]} | {threshold_coordiantes[i]}\n\n'
                 try:
-                    self.make_xlsx(str_res, '\\output\\res_sliding_with_threshold')
+                    self.make_xlsx(str_res,'res_sliding_with_threshold')
                 except:
-                    with open(self.path_res + '\\output\\res_sliding_with_threshold.txt', "w") as f:
+                    with open(os.path.join(self.path_res, 'output', 'res_sliding_with_threshold.txt'), "w") as f:
                         f.write(str_res)
-                    os.startfile(self.path_res + '\\output\\res_sliding_with_threshold.txt')
+                    os.startfile(os.path.join(self.path_res, 'output', 'res_sliding_with_threshold.txt'))
             if self.path_res:
-                plt.savefig(self.path_res + '\\output\\res_sliding.png')
+                plt.savefig(os.path.join(self.path_res, 'output', 'res_sliding_with_threshold.png'))
             plt.show()
 
     @staticmethod
