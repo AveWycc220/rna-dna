@@ -9,6 +9,7 @@ from skbio.alignment import StripedSmithWaterman, local_pairwise_align_ssw
 from sklearn.cross_decomposition import CCA
 from skbio.sequence import DNA
 from scipy.stats import pearsonr
+import subprocess, sys
 import skbio.io.format
 import skbio.io
 import skbio.io.format.blast6
@@ -211,7 +212,11 @@ class Program:
                             f'При пороге = {threshold}%\n\nОбщая длина ДНК: {sum_DNA_len}\nОбщая длина сходимостей при выравнивании: {sum_res_len}\nОбщая длина пропусков при выравнивании: '
                             f'{sum_hole_len}\n\nПроцент сходимости: {(sum_res_len / sum_DNA_len) * 100}\nПроцент пропусков: {(sum_hole_len / sum_DNA_len) * 100}\n\n'
                             f'Средняя длина ДНК: {sum_DNA_len / len(res)}\nСреднее число сходимостей: {sum_res_len / len(res)}\nСреднее число пропусков: {sum_hole_len / len(res)}')
-                os.startfile(os.path.join(PATH, 'output', 'stats_alignment.txt'))
+                try:
+                    os.startfile(os.path.join(PATH, 'output', 'stats_alignment.txt'))
+                except:
+                    opener = "open" if sys.platform == "darwin" else "xdg-open"
+                    subprocess.call([opener, os.path.join(PATH, 'output', 'stats_alignment.txt')])
             return True
         return 'Выберете файлы или папку для сохранения результата'
 
@@ -230,7 +235,11 @@ class Program:
         return list(map(convert_letters, l))
 
     def open_file(self):
-        os.startfile(self.path_res)
+        try:
+            os.startfile(self.path_res)
+        except:
+            opener = "open" if sys.platform == "darwin" else "xdg-open"
+            subprocess.call([opener, self.path_res])
 
     # xlsx
     def make_xlsx(self, data, name):
@@ -287,7 +296,11 @@ class Program:
                     except:
                         with open(os.path.join(self.path_res, 'output', 'res_bern.txt'), "w") as f:
                             f.write(str_res)
-                        os.startfile(os.path.join(self.path_res, 'output', 'res_bern.txt'))
+                        try:
+                            os.startfile(os.path.join(self.path_res, 'output', 'res_bern.txt'))
+                        except:
+                            opener = "open" if sys.platform == "darwin" else "xdg-open"
+                            subprocess.call([opener, os.path.join(self.path_res, 'output', 'res_bern.txt')])
                 plt.figure(figsize=(8, 6), dpi=80)
                 plt.plot([i for i in range(len(self.DNA_1))], res)
                 plt.xlabel('Количество положительный исходов k из n испытаний')
@@ -308,7 +321,11 @@ class Program:
                     except:
                         with open(os.path.join(self.path_res, 'output', 'res_bern.txt'), "w") as f:
                             f.write(str_res)
-                        os.startfile(os.path.join(self.path_res, 'output', 'res_bern.txt'))
+                        try:
+                            os.startfile(os.path.join(self.path_res, 'output', 'res_bern.txt'))
+                        except:
+                            opener = "open" if sys.platform == "darwin" else "xdg-open"
+                            subprocess.call([opener, os.path.join(self.path_res, 'output', 'res_bern.txt')])
                 plt.figure(figsize=(8, 6), dpi=80)
                 plt.plot([i for i in range(len(self.DNA_2))], res)
                 plt.xlabel('Количество положительный исходов k из n испытаний')
@@ -341,7 +358,11 @@ class Program:
                             except:
                                 with open(os.path.join(self.path_res, 'output', 'res_bern.txt'), "w") as f:
                                     f.write(str_res)
-                                os.startfile(os.path.join(self.path_res, 'output', 'res_bern.txt'))
+                                try:
+                                    os.startfile(os.path.join(self.path_res, 'output', 'res_bern.txt'))
+                                except:
+                                    opener = "open" if sys.platform == "darwin" else "xdg-open"
+                                    subprocess.call([opener, os.path.join(self.path_res, 'output', 'res_bern.txt')])
                     plt.figure(figsize=(8, 6), dpi=80)
                     plt.plot([i for i in range(len(self.DNA_1))], res)
                     plt.xlabel('Количество положительный исходов k из n испытаний')
@@ -373,7 +394,11 @@ class Program:
                             except:
                                 with open(os.path.join(self.path_res, 'output', 'res_bern.txt'), "w") as f:
                                     f.write(str_res)
-                                os.startfile(os.path.join(self.path_res, 'output', 'res_bern.txt'))
+                                try:
+                                    os.startfile(os.path.join(self.path_res, 'output', 'res_bern.txt'))
+                                except:
+                                    opener = "open" if sys.platform == "darwin" else "xdg-open"
+                                    subprocess.call([opener, os.path.join(self.path_res, 'output', 'res_bern.txt')])
                     plt.figure(figsize=(8, 6), dpi=80)
                     plt.plot([i for i in range(len(self.DNA_2))], res)
                     plt.xlabel('Количество положительный исходов k из n испытаний')
@@ -456,7 +481,11 @@ class Program:
                 except:
                     with open(os.path.join(self.path_res, 'output', 'res_sliding.txt'), "w") as f:
                         f.write(str_res)
-                    os.startfile(os.path.join(self.path_res, 'output', 'res_sliding.txt'))
+                    try:
+                        os.startfile(os.path.join(self.path_res, 'output', 'res_sliding.txt'))
+                    except:
+                        opener = "open" if sys.platform == "darwin" else "xdg-open"
+                        subprocess.call([opener, os.path.join(self.path_res, 'output', 'res_sliding.txt')])
             if self.path_res and threshold:
                 str_res = f'Номер позиции | Процент совпадения, % | Координаты совпадений\nПорог = {threshold}%\n'
                 for i in range(len(threshold_res)):
@@ -466,7 +495,11 @@ class Program:
                 except:
                     with open(os.path.join(self.path_res, 'output', 'res_sliding_with_threshold.txt'), "w") as f:
                         f.write(str_res)
-                    os.startfile(os.path.join(self.path_res, 'output', 'res_sliding_with_threshold.txt'))
+                    try:
+                        os.startfile(os.path.join(self.path_res, 'output', 'res_sliding_with_threshold.txt'))
+                    except:
+                        opener = "open" if sys.platform == "darwin" else "xdg-open"
+                        subprocess.call([opener, os.path.join(self.path_res, 'output', 'res_sliding_with_threshold.txt')])
             if self.path_res:
                 plt.savefig(os.path.join(self.path_res, 'output', 'res_sliding_with_threshold.png'))
             plt.show()
